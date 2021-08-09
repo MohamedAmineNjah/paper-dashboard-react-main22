@@ -9,7 +9,9 @@ export const ACTION_TYPES = {
   FETCH_BLOG: 'blog/FETCH_BLOG',
   FETCH_BLOG_LISTSEARCH: 'blog/FETCH_BLOG_LISTSEARCH',
   RESET: 'blog/RESET',
-  CREATE_BLOG: 'blog/CREATE_BLOG'
+  CREATE_BLOG: 'blog/CREATE_BLOG',
+  UPDATE_BLOG: 'blog/UPDATE_BLOG'
+
 };
 
 const initialState = {
@@ -34,6 +36,7 @@ export default (state: BlogState = initialState, action: { type: any; payload: {
     case REQUEST(ACTION_TYPES.FETCH_BLOG):
     case REQUEST(ACTION_TYPES.FETCH_BLOG_LISTSEARCH):
     case REQUEST(ACTION_TYPES.CREATE_BLOG):
+    case REQUEST(ACTION_TYPES.UPDATE_BLOG):
       return {
         ...state,
         errorMessage: null,
@@ -46,6 +49,7 @@ export default (state: BlogState = initialState, action: { type: any; payload: {
     case FAILURE(ACTION_TYPES.FETCH_BLOG):
     case FAILURE(ACTION_TYPES.FETCH_BLOG_LISTSEARCH):
     case FAILURE(ACTION_TYPES.CREATE_BLOG):
+    case FAILURE(ACTION_TYPES.UPDATE_BLOG):
 
       return {
         ...state,
@@ -75,7 +79,8 @@ export default (state: BlogState = initialState, action: { type: any; payload: {
         loading: false,
         entity: action.payload.data,
       };
-      case SUCCESS(ACTION_TYPES.CREATE_BLOG):      
+      case SUCCESS(ACTION_TYPES.CREATE_BLOG):  
+      case SUCCESS(ACTION_TYPES.UPDATE_BLOG):          
           return {
             ...state,
             updating: false,
@@ -107,7 +112,7 @@ export const getAllBlogs = () => {
 export const createEntity = (entity: any) => {
   const result = ({
     type: ACTION_TYPES.CREATE_BLOG,
-    payload: axios.post(apiUrl)
+    payload: axios.post(apiUrl,entity)
   });
   return result;
 };
@@ -129,3 +134,10 @@ export const reset = () => ({
 
 //   return pick(entity, keysToKeep);
 // };
+export const updateEntity = (entity: any) => {
+  const result = ({
+    type: ACTION_TYPES.UPDATE_BLOG,
+    payload: axios.put(apiUrl,entity)
+  });
+  return result;
+};

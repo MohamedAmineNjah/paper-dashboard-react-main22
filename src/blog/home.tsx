@@ -125,7 +125,7 @@ const deletecat = (id : any) =>{
                     ) : (
 
                             <div className="alert alert-warning">
-                                No product found
+                                No blogs found
                             </div>
 
                         )}

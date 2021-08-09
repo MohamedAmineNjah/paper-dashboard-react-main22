@@ -4,7 +4,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { IRootState } from '../index2';
 
-import { getAllBlogs, createEntity, getEntity, reset as resetSousRachOperation } from './blogs.reducer';
+import { getAllBlogs, createEntity,updateEntity, getEntity, reset as resetSousRachOperation } from './blogs.reducer';
 import {  Grid,  TextField } from '@material-ui/core';
 import {  useForm } from 'react-hook-form';
 
@@ -55,8 +55,8 @@ export const BlogUpdate = (props: IBlogUpdateProps) => {
       props.createEntity(values);
     }
     else {
-      values['id'] = props.match.params.id;
-      //   props.updateEntity(values);
+      console.log(values);
+      props.updateEntity(values);
     }
   }
 
@@ -149,7 +149,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 
 const mapDispatchToProps = {
   getEntity,
-  // updateEntity,
+  updateEntity,
   createEntity,
   getAllBlogs,
 };
